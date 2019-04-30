@@ -64,6 +64,12 @@ In order to generate the ultrasound you need to set the Trig on a High State for
 
 
 ## Operating three ultrasonic sensors concurrently
+Adapting the code above to operate three of the ultrasonic sensors concurrently exposes a major issue with respect to how unoptimized the code above is. Several delay functions, including the pulseIn function block any further processing by the processor until they have completed their respective routines which causes lots of valuable time losses.
+
+The sensor requires two of these delays for their proper function. Anything less than this results in a total malfunction which leads to unpredictive and erroneous results. They are:
+1. The time interval between successive triggers (100 milliseconds). It's recommended to wait at least this interval before another trigger. 
+2. The trigger length (10 miroseconds) which refers to the interval between when the trigger pin is set high and then low.
+
 The LEDs were added to provide a visual cue to an observer about when the respective ultrasonic sensor has a lock on an object.
 
-![Photon and sensor setup](https://lh3.googleusercontent.com/aOGESy7z6LJA1MKZu-8_F3fkbDrixD-gwzMaNBt7uHLJF7u5kGIUPZhc11ZhNm5iKyU5AHEJxhWmQ0Yare6ZJ6_lYLUpm8x0EEkuIkBTB6KbuJaiTfiCkJ5mYJV0eIuBLlg-1RyUdhsqEQj0LCHLe93M5WbnXG83nW60em87j75s8URPEjmsXH7lJrFfbncIkBRvqP3VYPitc2sKJkzjBCM1Ph3w2GGX0-iO0QTnZTfV2BH8OjBiIyXQJmRwvmrGlxudz7B7O_ZuOtm-95AnhL6dRNFFNNzTciIqNq0LrG-vwZHnIYlYTuxO_HrYWC3qCke3LV8YYm1dn5VXJqzvBH_Wzu_WNi9_BX2viZC844OXv8fOQTAzvDOm_xPwb9q-K129_Wajwx-f37K5fus7__sft8AoGQnjfv49CbP6yCElRDAsUDQn1DsEYgTbCMHdCVKWfQFXxj1TWvAiws-FL7otCGhfbUq29MT34pd65Kxs9ZBmWJYD4JxCN9s3u2j4wHPhnA67eRpbPk6WjDtPoO5Qe18EAiE31xllOCdmw_B_JSopsZRHzUCBnM5T3MFLjKUtW-UrvM02JG-q6ouxx00ZdzsONfLvQzGJMCPo8N6hTiUOa7stIscY9C4VtusaEwv1u9L44C5AANGK_3OhZLGRIBa33-ig=w1246-h829-no)
+![Photon and sensor setup](https://lh3.googleusercontent.com/mf_g8sRSLoaWhfDBYqEbg-dRGGpE-W3MlzlIgxlmZ5Hic7qnGjRUIKQMepZ2aLzIh772NVG6v_-Cz_pWPTNctCLFOO2ACTMGz5izfRg6wi3EqWesQdnkuuWYv3atFqh897MJTtOM7ZH1i1L-pcFSNHgmmLq6PssFRowYe43VES-IwUs-KfdiVZgbYdJaiVxdOJGZq86wss6LqUcKKo5SUGrqdrMFl66KlT-_ncWdDe1bQKY9fvnrVDqw5QIcY6dmCXde2hH5hGb3uoxbQ-vE8baIgLpo_E8LSb8i1LN3gMcovijrSBa2_iaTmbeiSW0B-A54dgdiweQMq3ae8Xe3OtROjxZwz4QJVyr0tukjco8J8Tx-Et0AH4M-SHznI8ceUv_8ESbhQxxyjku4xzbqhS1AOdwStFUJZXYZaVZJWDXY_jMHo2MmCw6gW4Svbkmal6ELuR8eG94nEEbRboqS4cPVvdb000g1Axe2fpo2Bj9Odunr_RFlYn2xBsTe7aNgsr8yFly6_WIlLZzgU70EtsSwfkSABilOiEh9nPJ6bKXeiTXvrU3kKpFdE6DZHp1BOTgzG_4Pd9qGiFKKBAFzwL0k5Q4cQJEaIM3UnWYP1IB4EijqD0WEPGyxRxaF_SNtWzVJJdjfRjKpcLVfrUpiDVVmztNA733e=w1241-h825-no)
