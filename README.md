@@ -19,7 +19,7 @@ Once the photon has been [setup](https://docs.particle.io/guide/getting-started/
 The photos is a 3V3 device but the Ultrasonic sensors are 5V devices so for the purposes of this project, the Vcc was obtained from the Vin pin of the photon. The Vin pin extends the 5V from the external supply (USB in this case) for use by devices that require it.
 
 
-![Photon and single sensor setup](https://lh3.googleusercontent.com/Xe4HW000d6frL4SwBG6PeyBP30EypJroX1ozOxZB6zl8bjAcGcsZv0R-cBKnqeoTU3qr8NUdTPAgyovB5dloO-lwOUSiirQ0f7-kT-cumumsk962d3hlrsLM1_3Y89zqpyN-vqOTM29hoD39WUmFjZvz4s899M63Vdtvv5Z9PsKh6pj_zxusA8S2KVXcsJeF81z-AsxplFnFMH50VAJlQQrPcphIYqOs57tcJqSHLADX_KqoQGiVk-kbc4CThfwlqPd5x96ENSpdzhFTfjb85zFf0TA92CZtM5hjUehDYAYhh-KG5nnDqYMlXxp4E1xKhm0zhnJbchBYozZsFjmXBnEnubLjIEnpOhAb-l0AMS77Ew1lGRxdgt3BpUvv6DLKAsKVZ0QkXQPlzeoeIhBJ4nKFwwaYB4vdFmvuhF44nasD6NuF2g58R0UOVFMrWl2TQ5sxyuEifxNVgRa1qaOMOfwbvqj-ECGH46PHXIk5urcHQECS1q1ZwOaVJTceBMTSgyN5FLr9NMoh5IEh0WQJzaJGzZ3RJRmsSH7UZ9cuw9oM2f9baSiecIYFSqiKcM64fXQwOKk0PQ-2zHdhM2QE3Yo59HjgEYJP8P7bebDjru8HrgPPWxqvAVRBNFa8_FVOrwh09c_x_26DJvXVwrvBCnbUsH93eQoe=w1290-h604-no)
+![Photon and single sensor setup](https://i.imgur.com/GgHCLG9.png)
 
 ## A word about ultrasonic sensors
 Our ultrasonic sensors, like many others, use a single transducer to send a pulse and to receive the echo.  The sensor determines the distance to a target by measuring time lapses between the sending and receiving of the ultrasonic pulse. [Read more here](https://www.maxbotix.com/articles/how-ultrasonic-sensors-work.htm) and [here](https://howtomechatronics.com/tutorials/arduino/ultrasonic-sensor-hc-sr04/)
