@@ -150,12 +150,21 @@ But the system is not perfect, and although some kind of machine learning algori
     
 All the states are represented here except for 111 (7) which remains an invalid state and is not expected to ever happen due to the positioning of the sensors and the average width of the pedestrian. According to the sensor's documentation, each sensor has a beam angle of about 30° of which 15° is typically effective. The beams are usually of the same frequency so it's important to separate the sensors to prevent any cross readings. [Read more](http://dyor.roboticafacil.es/en/sensor-distancia/).
 
-A cross reading or representations happens when the ultrasonic beam of one sensor is mistakingly received by another causing it to report erroneous pulse lenghts.
+A cross reading or representation happens when the ultrasonic pulse of one sensor is mistakingly received by another causing it to report erroneous pulse lenghts.
 
 The facts of the analysis above are as follows:
 1. The sum of the various trasitions has 7 being the lowest and 16 the highest. 
 2. Between 7, 10, 13 and 16, the difference between consecutive patterns is 3.
 3. A succesful crossing must satisfy any of the 4 transitions, anything else will be regarded is invalid
+4. The transitions have to sum up to exactly any of 7, 10, 13 and 16
+5. The order here is not important because the probability of a sum occuring out of sequence is very low
+
+Now to the look-ahead part of the algorithm:
+
+    1. When traversing through the stack, if a state 4 is encountered
+    2. Starting from the state 4, sum all other successive states until the sum less 7 is zero or the sum less 7 mod 3 is zero
+    3. If any of these conditions check out, check if the state at the time this conditions is met is state 1
+    4. If this too checks out, then increase the count of left crossings by 1
 
 
 
