@@ -105,7 +105,7 @@ The LinkedList was used to implement the state change stack which is then run th
 
 
 ## Identifying a crossing in the stack
-In a typical scenario, lets assume we are observers observing the unit at a sidewalk. The pedestrian is walking across from right to left. This crossing from right to left is referred to as a Left Crossing.
+In a typical scenario, lets assume we are observers observing the unit at a sidewalk and a pedestrian is walking across from right to left. This crossing from right to left is referred to as a Left Crossing and it will be the basis of the explanation for how a crossing is identified from the stack.
 
 ![left crossing](https://i.imgur.com/VdE2kMS.png)
 
@@ -125,5 +125,28 @@ It always starts with a state 1 and ends with a state 4. The stack will contain 
 
 The algorithm employed to achieve this employs a peek and look-ahead strategy, one for each direction. Starting from the top of the stack to the bottom, the algorithm iterates over the stack by "peeking" at the state at the top of the stack, and then the next and so on. 
 
-Anytime it peeks, it checks if the state is 4, implying there is a chance that 4 terminates a left crossing pattern. Other than that, it continues till it reaches the bottom. 
+Anytime it peeks, it checks if the state is 4, implying there is a chance that 4 terminates a left crossing pattern. Other than that, it continues till it reaches the bottom.
+
+To summarize the transitions again, when a pedestrian crosses from the right to the left (left crossing) we expect the transitions to be as follows:
+
+    000 -> 001 -> 011 -> 010 -> 110 -> 100 -> 000 
+
+which is the same as:
+
+    0 -> 1 -> 3 -> 2 -> 6 -> 4 -> 0
+
+But the system is not perfect, and although some kind of machine learning algorithm could iron out the errors, the possibilities are few and can be catered to using simple algebra. The following transitions could also be valid left crossings assuming the system has imperfections.
+
+    000(0)              000(0)               000(0)               000(0)
+    001(1)              001(1)               001(1)               001(1)
+    010(2)              011(3)               010(2)               011(3)             
+    100(4)              010(2)               110(6)               010(2)
+    000(0)              100(4)               100(4)               110(6)  
+                        000(0)               000(0)               100(4)
+                                                                  000(0)
+    ------              ------               ------               ------
+    
+
+
+
 
