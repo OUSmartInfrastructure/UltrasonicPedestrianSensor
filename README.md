@@ -72,7 +72,7 @@ The sensor requires two of these delays for their proper function. Anything less
 
 The LEDs were added to provide a visual cue to an observer about when the respective ultrasonic sensor has a lock on an object.
 
-![Photon and sensor setup](https://lh3.googleusercontent.com/mf_g8sRSLoaWhfDBYqEbg-dRGGpE-W3MlzlIgxlmZ5Hic7qnGjRUIKQMepZ2aLzIh772NVG6v_-Cz_pWPTNctCLFOO2ACTMGz5izfRg6wi3EqWesQdnkuuWYv3atFqh897MJTtOM7ZH1i1L-pcFSNHgmmLq6PssFRowYe43VES-IwUs-KfdiVZgbYdJaiVxdOJGZq86wss6LqUcKKo5SUGrqdrMFl66KlT-_ncWdDe1bQKY9fvnrVDqw5QIcY6dmCXde2hH5hGb3uoxbQ-vE8baIgLpo_E8LSb8i1LN3gMcovijrSBa2_iaTmbeiSW0B-A54dgdiweQMq3ae8Xe3OtROjxZwz4QJVyr0tukjco8J8Tx-Et0AH4M-SHznI8ceUv_8ESbhQxxyjku4xzbqhS1AOdwStFUJZXYZaVZJWDXY_jMHo2MmCw6gW4Svbkmal6ELuR8eG94nEEbRboqS4cPVvdb000g1Axe2fpo2Bj9Odunr_RFlYn2xBsTe7aNgsr8yFly6_WIlLZzgU70EtsSwfkSABilOiEh9nPJ6bKXeiTXvrU3kKpFdE6DZHp1BOTgzG_4Pd9qGiFKKBAFzwL0k5Q4cQJEaIM3UnWYP1IB4EijqD0WEPGyxRxaF_SNtWzVJJdjfRjKpcLVfrUpiDVVmztNA733e=w1241-h825-no)
+![Photon and sensor setup](https://i.imgur.com/dABqimX.png)
 
 To deal with this issue of blocking, the succesful approach made use of interrupts. Interrupts is a mechanism by which an I/O or an instruction can suspend the normal execution of processor and gets itself serviced like it has higher priority. For example a processor doing a normal execution can be interrupted by some sensor to execute a particular process that is present in ISR (Interrupt Service Routine). After executing the ISR, the processor can again resume the normal execution of the program. [Read more](https://circuitdigest.com/microcontroller-projects/arduino-interrupt-tutorial-with-examples)
 
@@ -107,7 +107,7 @@ The LinkedList was used to implement the state change stack which is then run th
 ## Identifying a crossing in the stack
 In a typical scenario, lets assume we are observers observing the unit at a sidewalk. The pedestrian is walking across from right to left. This crossing from right to left is referred to as a Left Crossing.
 
-![left crossing](https://lh3.googleusercontent.com/yjSN3VQN6j2ipOP_dxTKMwrqGbGQfYVMyM00OF1rf-c-cwV-9-LthvZg4RV3azaiBzuBUNqD89Lfqi1-LQKH3vwW5kjmpvxEZ-M99uo1_lJMMt1_kIqQvfajzkU3jDb4hW8vOEREJCNpm7rTSExqHL6J1zipj9bpPHZqVVXcCXLwufSzfOqhEmpbA0LZv9szrBHkV1ODrisyicaipTUL14Ga522agOhBwRCK6Iji5BSV39WxkmsFbVWE-v7W2EsyNMazKSbi-BwpT7TRl4QQel5Pa8QBY-0YsDSb7_m7j3M1atwwqVLsUqSARTRV5YA1KfnjPT9mCWSWEx1vwy1KIyyDPzY4uuP-7H4T5o0mUp042bblcZRqNPA0zFR0O8FhSKsQkZJSfNbX6o1TRUXB17uIb0O3U_Bf2FuFAjnWEpkmdG6ZnK4mhm9QVts03ufKZCAmCjYpopG7FWMJ3tv28fj0o1cnidTCctiLJcD2-SvXR6-v86YHaX8nof02xep02RnDw71oUk3cUzWNWfVOZULxtQZO3VPFHoWWFASq-rksIKcHma0r_1gDK2mdJOzipcXDis8m9Cef2Z_tOjCMJd56pk6WyNSCDXUC_xMMJrqVVllPG5D1XmoI_5GUaoh1lnfe21ASDz1x2cDOLpH732joeZfYm5FL=w800-h600-no)
+![left crossing](https://i.imgur.com/VdE2kMS.png)
 
 As the pedestrian crosses the unit, ideally we expect a number of transitions. Each transition will pe pushed down the stack as observed below:
 
