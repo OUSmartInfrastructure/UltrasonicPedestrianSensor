@@ -99,5 +99,16 @@ In the code, a sensor with a LOW instantaneous state means no object has been de
 Also, because of the constant delays required for the proper function of the ultrasonic sensor, the maximum number of times a sensor can change it's state in a second is approximately 10.
 
 ## Storing state transitions
-Establishing state changes is one step towards identifying the possibility of a pedestrian crossing but to establish the direction, these states need to be stored and analyzed. In C programming, serial data is usually managed using arrays or vectors but arrays require a predetermined size and vectors are a lot harder to manipulate so the storage mechanism of choice was the LinkedList data structure. Fortunately a good one has been implemented by Ivan Seidel Gomes and can be obtained from [GitHub](https://github.com/ivanseidel/LinkedList/)
+Establishing state changes is one step towards identifying the possibility of a pedestrian crossing but to establish the direction, these states need to be stored and analyzed. In C programming, serial data is usually managed using arrays or vectors but arrays require a predetermined size and vectors are a lot harder to manipulate so the storage mechanism of choice was the LinkedList data structure. Fortunately a good one has been implemented by Ivan Seidel Gomes and can be obtained from [GitHub](https://github.com/ivanseidel/LinkedList/).
+
+The LinkedList was used to implement the state change stack which is then run through an algorithm to determine a pattern of transitions that amount to a crossing.
+
+
+## Identifying a crossing in the stack
+In a typical scenario, lets assume we are observers observing the unit at a sidewalk. The pedestrian is walking across from right to left.
+
+![left crossing](https://lh3.googleusercontent.com/yjSN3VQN6j2ipOP_dxTKMwrqGbGQfYVMyM00OF1rf-c-cwV-9-LthvZg4RV3azaiBzuBUNqD89Lfqi1-LQKH3vwW5kjmpvxEZ-M99uo1_lJMMt1_kIqQvfajzkU3jDb4hW8vOEREJCNpm7rTSExqHL6J1zipj9bpPHZqVVXcCXLwufSzfOqhEmpbA0LZv9szrBHkV1ODrisyicaipTUL14Ga522agOhBwRCK6Iji5BSV39WxkmsFbVWE-v7W2EsyNMazKSbi-BwpT7TRl4QQel5Pa8QBY-0YsDSb7_m7j3M1atwwqVLsUqSARTRV5YA1KfnjPT9mCWSWEx1vwy1KIyyDPzY4uuP-7H4T5o0mUp042bblcZRqNPA0zFR0O8FhSKsQkZJSfNbX6o1TRUXB17uIb0O3U_Bf2FuFAjnWEpkmdG6ZnK4mhm9QVts03ufKZCAmCjYpopG7FWMJ3tv28fj0o1cnidTCctiLJcD2-SvXR6-v86YHaX8nof02xep02RnDw71oUk3cUzWNWfVOZULxtQZO3VPFHoWWFASq-rksIKcHma0r_1gDK2mdJOzipcXDis8m9Cef2Z_tOjCMJd56pk6WyNSCDXUC_xMMJrqVVllPG5D1XmoI_5GUaoh1lnfe21ASDz1x2cDOLpH732joeZfYm5FL=w800-h600-no)
+
+
+
 
