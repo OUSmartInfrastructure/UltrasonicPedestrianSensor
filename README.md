@@ -145,7 +145,12 @@ But the system is not perfect, and although some kind of machine learning algori
                         000(0)               000(0)               100(4)
                                                                   000(0)
     ------              ------               ------               ------
+    7                   10                   13                   16
     
+    
+All the states are represented here except for 111 (7) which is a state which is not expected to ever happen due to the positioning of the sensors. According to the documentation, each sensor has a beam angle of about 30° of which 15° is typically effective. The beams are usually of the same frequency so it's important to separate the sensors to prevent any cross readings. [Read more](http://dyor.roboticafacil.es/en/sensor-distancia/)
+
+
 
 
 
