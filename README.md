@@ -105,10 +105,21 @@ The LinkedList was used to implement the state change stack which is then run th
 
 
 ## Identifying a crossing in the stack
-In a typical scenario, lets assume we are observers observing the unit at a sidewalk. The pedestrian is walking across from right to left.
+In a typical scenario, lets assume we are observers observing the unit at a sidewalk. The pedestrian is walking across from right to left. This crossing from right to left is referred to as a Left Crossing.
 
 ![left crossing](https://lh3.googleusercontent.com/yjSN3VQN6j2ipOP_dxTKMwrqGbGQfYVMyM00OF1rf-c-cwV-9-LthvZg4RV3azaiBzuBUNqD89Lfqi1-LQKH3vwW5kjmpvxEZ-M99uo1_lJMMt1_kIqQvfajzkU3jDb4hW8vOEREJCNpm7rTSExqHL6J1zipj9bpPHZqVVXcCXLwufSzfOqhEmpbA0LZv9szrBHkV1ODrisyicaipTUL14Ga522agOhBwRCK6Iji5BSV39WxkmsFbVWE-v7W2EsyNMazKSbi-BwpT7TRl4QQel5Pa8QBY-0YsDSb7_m7j3M1atwwqVLsUqSARTRV5YA1KfnjPT9mCWSWEx1vwy1KIyyDPzY4uuP-7H4T5o0mUp042bblcZRqNPA0zFR0O8FhSKsQkZJSfNbX6o1TRUXB17uIb0O3U_Bf2FuFAjnWEpkmdG6ZnK4mhm9QVts03ufKZCAmCjYpopG7FWMJ3tv28fj0o1cnidTCctiLJcD2-SvXR6-v86YHaX8nof02xep02RnDw71oUk3cUzWNWfVOZULxtQZO3VPFHoWWFASq-rksIKcHma0r_1gDK2mdJOzipcXDis8m9Cef2Z_tOjCMJd56pk6WyNSCDXUC_xMMJrqVVllPG5D1XmoI_5GUaoh1lnfe21ASDz1x2cDOLpH732joeZfYm5FL=w800-h600-no)
 
+As the pedestrian crosses the unit, ideally we expect a number of transitions. Each transition will pe pushed down the stack as observed below:
 
+    Stack level         Sensor State
+    -----------         ------------ 
+    0                   000 -> 0
+    1                   001 -> 1
+    2                   011 -> 3
+    3                   010 -> 2
+    4                   110 -> 6
+    5                   100 -> 4
+    6                   000 -> 0
 
+It always starts with a state 1 and ends with a state 4.
 
