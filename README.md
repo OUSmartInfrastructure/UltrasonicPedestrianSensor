@@ -148,7 +148,18 @@ But the system is not perfect, and although some kind of machine learning algori
     7                   10                   13                   16
     
     
-All the states are represented here except for 111 (7) which is a state which is not expected to ever happen due to the positioning of the sensors. According to the documentation, each sensor has a beam angle of about 30° of which 15° is typically effective. The beams are usually of the same frequency so it's important to separate the sensors to prevent any cross readings. [Read more](http://dyor.roboticafacil.es/en/sensor-distancia/)
+All the states are represented here except for 111 (7) which remains an invalid state and is not expected to ever happen due to the positioning of the sensors and the average width of the pedestrian. According to the sensor's documentation, each sensor has a beam angle of about 30° of which 15° is typically effective. The beams are usually of the same frequency so it's important to separate the sensors to prevent any cross readings. [Read more](http://dyor.roboticafacil.es/en/sensor-distancia/).
+
+A cross reading or representations happens when the ultrasonic beam of one sensor is mistakingly received by another causing it to report erroneous pulse lenghts.
+
+The facts of the analysis above are as follows:
+1. The sum of the various trasitions has 7 being the lowest and 16 the highest. 
+2. Between 7, 10, 13 and 16, the difference between consecutive patterns is 3.
+3. A succesful crossing must satisfy any of the 4 transitions, anything else will be regarded is invalid
+
+
+
+
 
 
 
