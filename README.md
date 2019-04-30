@@ -14,7 +14,7 @@ To get things started, it was required to:
  
  
 ## Setting up the Photon with the sensor unit
-Once the photon has been [setup](https://docs.particle.io/guide/getting-started/start/photon/) and the development environment is ready for use, you can go on to connect the ultrasonic sensors as described in the breadboard diagram below. Each sensor unit requires a 5V power supply, a connection to ground and digital pins for the echo and trigger functionality.
+Once the photon has been [setup](https://docs.particle.io/guide/getting-started/start/photon/) and the development environment is ready for use, you can go on to connect the ultrasonic sensors as described in the breadboard diagram below. Each sensor unit requires a 5V power supply, a connection to ground and digital I/O pins for the echo and trigger functionality.
 
 The photos is a 3V3 device but the Ultrasonic sensors are 5V devices so for the purposes of this project, the Vcc was obtained from the Vin pin of the photon. The Vin pin extends the 5V from the external supply (USB in this case) for use by devices that require it.
 
@@ -25,5 +25,42 @@ The LEDs were added to provide a visual cue to an observer about when the respec
 
 
 ## A word about ultrasonic sensors
-Our ultrasonic sensors, like many others, use a single transducer to send a pulse and to receive the echo.  The sensor determines the distance to a target by measuring time lapses between the sending and receiving of the ultrasonic pulse. [Read more](https://www.maxbotix.com/articles/how-ultrasonic-sensors-work.htm)
+Our ultrasonic sensors, like many others, use a single transducer to send a pulse and to receive the echo.  The sensor determines the distance to a target by measuring time lapses between the sending and receiving of the ultrasonic pulse. [Read more here](https://www.maxbotix.com/articles/how-ultrasonic-sensors-work.htm) and [here](https://howtomechatronics.com/tutorials/arduino/ultrasonic-sensor-hc-sr04/)
 
+## Operating a single ultrasonic sensor with the Photon
+In order to generate the ultrasound you need to set the Trig on a High State for 10 µs. That will send out an 8 cycle sonic burst which will travel at the speed of sound and it will be received in the Echo pin. The Echo pin will output the time in microseconds the sound wave traveled.
+
+
+     // defines pins numbers
+     const int trigPin = D0;
+     const int echoPin = D1;
+     
+     // defines variables
+     long duration;
+     int distance;
+     
+     void setup() {
+         pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
+         pinMode(echoPin, INPUT); // Sets the echoPin as an Input
+         Serial.begin(9600); // Starts the serial communication
+     }
+     void loop() {
+         // Clears the trigPin
+         digitalWrite(trigPin, LOW);
+         delayMicroseconds(2);
+         
+         // Sets the trigPin on HIGH state for 10 micro seconds
+         digitalWrite(trigPin, HIGH);
+         delayMicroseconds(10);
+         digitalWrite(trigPin, LOW);
+         
+         // Reads the echoPin, returns the sound wave travel time in microseconds
+         duration = pulseIn(echoPin, HIGH);
+         
+         // Calculating the distance
+         distance= duration*0.034/2; //Depending on the sensor model, this may be calculated differently
+         
+         // Prints the distance on the Serial Monitor
+         Serial.print("Distance: ");
+         Serial.println(distance);
+     }
