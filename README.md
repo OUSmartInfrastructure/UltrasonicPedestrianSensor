@@ -121,5 +121,9 @@ As the pedestrian crosses the unit, ideally we expect a number of transitions. E
     5                   100 -> 4
     6                   000 -> 0
 
-It always starts with a state 1 and ends with a state 4.
+It always starts with a state 1 and ends with a state 4. The stack will contain 100s and perhaps 1000s of such states so the real hurdle here has to do with identifying the number of this pattern of transitions within the stack.
+
+The algorithm employed to achieve this employs a peek and look-ahead strategy, one for each direction. Starting from the top of the stack to the bottom, the algorithm iterates over the stack by "peeking" at the state at the top of the stack, and then the next and so on. 
+
+Anytime it peeks, it checks if the state is 4, implying there is a chance that 4 terminates a left crossing pattern. Other than that, it continues till it reaches the bottom. 
 
