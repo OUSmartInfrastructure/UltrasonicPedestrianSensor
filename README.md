@@ -79,3 +79,18 @@ To deal with this issue of blocking, the succesful approach made use of interrup
 Interrupts can be of type hardware and software, but for the purposes of this project, a special kind of hardware interrupt which falls under external interrupts called the pin-change interrupt was used. Like Arduinos, Photons can have more interrupt pins enabled by using pin change interrupts. They can also be triggered using RISING or FALLING edges. On each FALLING edge, an Interrupt Service Routine (ISR) is called to perform a specific function in reaction to the interrupt.
 
 Interrupts provided a mechanism to avoid the dreaded pulseIn function that blocked any further execution of the program causing the system to greatly underperform. 
+
+## Implementing the state machine
+When in operation, the state of each sensor is either LOW (0) or HIGH (1). In essence, the entire system at anytime can be in one of the following eight finite states shown in their binary and decimal notations.
+
+     000 = 0
+     001 = 1
+     010 = 2
+     011 = 3
+     100 = 4
+     101 = 5
+     110 = 6
+     111 = 7
+
+
+
