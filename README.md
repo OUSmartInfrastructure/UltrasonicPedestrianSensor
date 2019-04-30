@@ -83,6 +83,7 @@ Interrupts provided a mechanism to avoid the dreaded pulseIn function that block
 ## Implementing the state machine
 When in operation, the state of each sensor is either LOW (0) or HIGH (1). In essence, the entire system at anytime can be in one of the following eight finite states shown in their binary and decimal notations.
 
+
      000 = 0
      001 = 1
      010 = 2
@@ -93,4 +94,10 @@ When in operation, the state of each sensor is either LOW (0) or HIGH (1). In es
      111 = 7
 
 
+In the code, a sensor with a LOW instantaneous state means no object has been detected within a distance of about 5 inches - 120 inches of that sensor. A HIGH state is the reverse of this statement. The system scans the status of these sensors constantly to establish one of the finite states listed above.
+
+Also, because of the constant delays required for the proper function of the ultrasonic sensor, the maximum number of times a sensor can change it's state in a second is approximately 10.
+
+## Storing state transitions
+Establishing state changes is one step towards identifying the possibility of a pedestrian crossing but to establish the direction, these states need to be stored and analyzed. In C programming, serial data is usually managed using arrays or vectors but arrays require a predetermined size and vectors are a lot harder to manipulate so the storage mechanism of choice was the LinkedList data structure. Fortunately a good one has been implemented by Ivan Seidel Gomes and can be obtained from [GitHub](https://github.com/ivanseidel/LinkedList/)
 
