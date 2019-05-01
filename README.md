@@ -1,6 +1,6 @@
 # Using Particle's Photon and three low-cost Ultrasonic Sensors (HC-SR04) to implement a finite-state machine that detects pedestrians crossing a relatively busy sidewalk 
 
-Particle's [Photon](https://www.particle.io/products/hardware/photon-wifi/) is small and powerful wifi-connected micontroller capable of basic to advaced telemetry when interfaced with sensor units. To demonstrate the use of Photon as a pedestrian sensor, the microcontroller was interfaced with three low-cost ultrasonic sensor units, _HC-SRO4_. 
+Particle's [Photon](https://www.particle.io/products/hardware/photon-wifi/) is small and powerful wifi-connected microntroller capable of basic to advaced telemetry when interfaced with sensor units. To demonstrate the use of Photon as a pedestrian sensor, the microcontroller was interfaced with three low-cost ultrasonic sensor units, _HC-SRO4_. 
 
 The scope of this project comprised setting up the microcontroller to report telemetry data in the form of the count and direction of crossings as determined by the state-machine to the [AT&T M2X](https://m2x.att.com/) service. AT&T M2X provides time-series data storage, device management, message brokering, event triggering, alarming, geo-fencing, and data visualization for industrial Internet of Things (IOT) products and services.
 
@@ -16,13 +16,13 @@ To get things started, it was required to:
 ## Setting up the Photon with the sensor unit
 Once the photon has been [setup](https://docs.particle.io/guide/getting-started/start/photon/) and the development environment is ready for use, you can go on to connect the ultrasonic sensors as described in the breadboard diagram below. Each sensor unit requires a 5V power supply, a connection to ground and digital I/O pins for the echo and trigger functionality.
 
-The photos is a 3V3 device but the Ultrasonic sensors are 5V devices so for the purposes of this project, the Vcc was obtained from the Vin pin of the photon. The Vin pin extends the 5V from the external supply (USB in this case) for use by devices that require it.
+The photos is a 3V3 device but the Ultrasonic sensors are 5V devices so for the purposes of this project, the Vcc was obtained from the Vin pin of the photon. The Vin pin extends the 5V from the external supply (USB in this case) for use by devices that require it. Power to the Photon is supplied via the on-board USB Micro B connector or directly via the VIN pin. If power is supplied directly to the VIN pin, the voltage should be regulated between 3.6VDC and 5.5VDC. When the Photon is powered via the USB port, VIN will output a voltage of approximately 4.8VDC due to a reverse polarity protection series schottky diode between V+ of USB and VIN. When used as an output, the max load on VIN is 1A. 3V3 can also be used as an output, but has a limited overhead of only 100mA available.[Read more](https://docs.particle.io/datasheets/wi-fi/photon-datasheet/)
 
 
 ![Photon and single sensor setup](https://i.imgur.com/GgHCLG9.png)
 
 ## A word about ultrasonic sensors
-Our ultrasonic sensors, like many others, use a single transducer to send a pulse and to receive the echo.  The sensor determines the distance to a target by measuring time lapses between the sending and receiving of the ultrasonic pulse. [Read more here](https://www.maxbotix.com/articles/how-ultrasonic-sensors-work.htm) and [here](https://howtomechatronics.com/tutorials/arduino/ultrasonic-sensor-hc-sr04/)
+The ultrasonic sensors, like many others, use a single transducer to send a pulse and to receive the echo.  The sensor determines the distance to a target by measuring time lapses between the sending and receiving of the ultrasonic pulse. [Read more here](https://www.maxbotix.com/articles/how-ultrasonic-sensors-work.htm) and [here](https://howtomechatronics.com/tutorials/arduino/ultrasonic-sensor-hc-sr04/)
 
 ## Operating a single ultrasonic sensor with the Photon
 In order to generate the ultrasound you need to set the Trig on a High State for 10 µs. That will send out an 8 cycle sonic burst which will travel at the speed of sound and it will be received in the Echo pin. The Echo pin will output the time in microseconds the sound wave traveled.
@@ -64,10 +64,11 @@ In order to generate the ultrasound you need to set the Trig on a High State for
 
 
 ## Operating three ultrasonic sensors concurrently
-Adapting the code above to operate three of the ultrasonic sensors concurrently exposes a major issue with respect to how unoptimized the code above is. Several delay functions, including the pulseIn function block any further processing by the processor until they have completed their respective routines which causes lots of valuable time losses.
+Adapting the code above to operate three of the ultrasonic sensors concurrently exposes a major issue with respect to how unoptimized the code above is for concurrent operation. Several delay functions, including the pulseIn function block any further processing by the processor until they have completed their respective routines which causes lots of valuable time losses.
 
 The sensor requires two of these delays for their proper function. Anything less than this results in a total malfunction which leads to unpredictive and erroneous results. They are:
-1. The time interval between successive triggers (100 milliseconds). It's recommended to wait at least this interval before another trigger. 
+
+1. The time interval between successive triggers (100 milliseconds is recommended but some models can support values as low as 25 milliseconds). It's recommended to wait at least this interval before another trigger. 
 2. The trigger length (10 miroseconds) which refers to the interval between when the trigger pin is set high and then low.
 
 The LEDs were added to provide a visual cue to an observer about when the respective ultrasonic sensor has a lock on an object.
@@ -78,10 +79,10 @@ To deal with this issue of blocking, the succesful approach made use of interrup
 
 Interrupts can be of type hardware and software, but for the purposes of this project, a special kind of hardware interrupt which falls under external interrupts called the pin-change interrupt was used. Like Arduinos, Photons can have more interrupt pins enabled by using pin change interrupts. They can also be triggered using RISING or FALLING edges. On each FALLING edge, an Interrupt Service Routine (ISR) is called to perform a specific function in reaction to the interrupt.
 
-Interrupts provided a mechanism to avoid the dreaded pulseIn function that blocked any further execution of the program causing the system to greatly underperform. 
+Interrupts provided a mechanism to avoid the inefficient pulseIn function that blocked any further execution of the program causing the system to greatly underperform. 
 
 ## Implementing the state machine
-When in operation, the state of each sensor is either LOW (0) or HIGH (1). In essence, the entire system at anytime can be in one of the following eight finite states shown in their binary and decimal notations.
+When in operation, the state of each sensor is either LOW (0) or HIGH (1). In essence, the entire system at anytime can be in one of the following eight finite states shown in their binary and decimal notations. 
 
 
      000 = 0
@@ -94,9 +95,9 @@ When in operation, the state of each sensor is either LOW (0) or HIGH (1). In es
      111 = 7
 
 
-In the code, a sensor with a LOW instantaneous state means no object has been detected within a distance of about 5 inches - 120 inches of that sensor. A HIGH state is the reverse of this statement. The system scans the status of these sensors constantly to establish one of the finite states listed above.
+In the code, a sensor with a LOW instantaneous state means no object has been detected within a distance of about 5 inches - 120 inches of that sensor. A HIGH state is the reverse of this statement. The system scans the status of these sensors constantly to establish one of the finite states listed above. 000 here means sensors 3, 2 and 1 in that respective order have no lock on any object in that instance. 101 also means sensors 3 and 1 have a lock but not sensor 2.
 
-Also, because of the constant delays required for the proper function of the ultrasonic sensor, the maximum number of times a sensor can change it's state in a second is approximately 10.
+Also, because of the constant delays required for the proper function of the ultrasonic sensor, the maximum number of times a sensor can change it's state in a second is approximately 10 (due to the required 100ms delay).
 
 ## Storing state transitions
 Establishing state changes is one step towards identifying the possibility of a pedestrian crossing but to establish the direction, these states need to be stored and analyzed. In C programming, serial data is usually managed using arrays or vectors but arrays require a predetermined size and vectors are a lot harder to manipulate so the storage mechanism of choice was the LinkedList data structure. Fortunately a good one has been implemented by Ivan Seidel Gomes and can be obtained from [GitHub](https://github.com/ivanseidel/LinkedList/).
@@ -150,7 +151,9 @@ But the system is not perfect, and although some kind of machine learning algori
     
 All the states are represented here except for 111 (7) which remains an invalid state and is not expected to ever happen due to the positioning of the sensors and the average width of the pedestrian. According to the sensor's documentation, each sensor has a beam angle of about 30° of which 15° is typically effective. The beams are usually of the same frequency so it's important to separate the sensors to prevent any cross readings. [Read more](http://dyor.roboticafacil.es/en/sensor-distancia/).
 
-A cross reading or representation happens when the ultrasonic pulse of one sensor is mistakingly received by another causing it to report erroneous pulse lenghts.
+A cross-talk reading or representation happens when:
+1. the ultrasonic pulse of one sensor is mistakingly received by another causing it to report erroneous pulse lenghts.
+2. Echos from the same pulse confuse the sensor causing it to report erroneous pulse lenghts.
 
 The facts of the analysis above are as follows:
 1. The sum of the various trasitions has 7 being the lowest and 16 the highest. 
@@ -162,9 +165,10 @@ The facts of the analysis above are as follows:
 Now to the look-ahead part of the algorithm:
 
     1. When traversing through the stack, if a state 4 is encountered
-    2. Starting from the state 4, sum all other successive states until the sum less 7 is zero or the sum less 7 mod 3 is zero
-    3. If any of these conditions check out, check if the state at the time this conditions is met is state 1
+    2. Starting from the STATE 4, sum all other successive states until the sum less 7 is zero or the sum less 7 mod 3 is zero
+    3. If any of these conditions check out, check if the state at the time this conditions is met is STATE 1
     4. If this too checks out, then increase the count of left crossings by 1
+    5. That for right crossings is the same except the starting state is STATE 1 and the ending state is STATE 4
 
 
 
