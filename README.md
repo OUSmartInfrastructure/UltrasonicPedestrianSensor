@@ -155,6 +155,9 @@ A cross-talk reading or representation happens when:
 1. the ultrasonic pulse of one sensor is mistakingly received by another causing it to report erroneous pulse lenghts.
 2. Echos from the same pulse confuse the sensor causing it to report erroneous pulse lenghts.
 
+Maintaining a 10 to 20 degree separation between the sensors may be all that is required to prevent any cross-talks.
+![cross talk prevention](https://i.imgur.com/NDfxG2w.jpg)
+
 The facts of the analysis above are as follows:
 1. The sum of the various trasitions has 7 being the lowest and 16 the highest. 
 2. Between 7, 10, 13 and 16, the difference between consecutive patterns is 3.
