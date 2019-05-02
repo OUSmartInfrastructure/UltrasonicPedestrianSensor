@@ -1,6 +1,6 @@
 #include "application.h"
-#include "src/constants.h"
-#include "src/LinkedList.h"
+#include "constants.h"
+#include "LinkedList.h"
 
 
 // LED pins
