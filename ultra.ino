@@ -2,6 +2,10 @@
 #include "constants.h"
 #include "LinkedList.h"
 
+// Author: Nana Ekow Taylor
+// License: MIT license
+// Copyright: 2019
+
 
 // LED pins
 pin_t led1 = D6;
